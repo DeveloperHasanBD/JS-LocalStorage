@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h3>Hello</h3>
+    <form>
+        <input type="text" id="user_name" placeholder="Username">
+        <input type="text" id="user_phone" placeholder="Phone">
+        <input type="button" value="Submit" onclick="manage_data()">
+    </form>
+    <div id="msg"></div>
+    <h2>User list</h2>
+    <table class="table" border="1" width="500">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="set_users_data">
+
+        </tbody>
+        
+    </table>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
