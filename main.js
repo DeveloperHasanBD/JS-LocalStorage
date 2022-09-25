@@ -1,57 +1,64 @@
 
+
 let id;
 display_data();
 function manage_data() {
     let user_name = $("#user_name").val();
     let user_phone = $("#user_phone").val();
-    $("#msg").html('');
+
     if (user_name && user_phone) {
-        if (id === undefined) {
+        if (id == undefined) {
             let arr = JSON.parse(localStorage.getItem('crud'));
             if (arr == null) {
                 let data = [
                     {
-                        'name': user_name,
-                        'phone': user_phone,
+                        'user_name': user_name,
+                        'user_phone': user_phone,
                     }
                 ];
                 localStorage.setItem('crud', JSON.stringify(data));
                 $("#user_name").val('');
                 $("#user_phone").val('');
+                $("#msg").html("Data added");
             } else {
                 arr.push({
-                    'name': user_name,
-                    'phone': user_phone,
+                    'user_name': user_name,
+                    'user_phone': user_phone,
                 });
                 localStorage.setItem('crud', JSON.stringify(arr));
                 $("#user_name").val('');
                 $("#user_phone").val('');
+                $("#msg").html("Data added");
             }
         } else {
-            let get_users = JSON.parse(localStorage.getItem('crud'));
-            get_users[id] = { 'name': user_name, 'phone': user_phone };
-            localStorage.setItem('crud', JSON.stringify(get_users));
+            let get_data = JSON.parse(localStorage.getItem('crud'));
+            get_data[id] = {
+                'user_name': user_name,
+                'user_phone': user_phone,
+            };
+            localStorage.setItem('crud', JSON.stringify(get_data));
+            $("#msg").html("Data updated");
         }
         display_data();
     } else {
-        $("#msg").html('Please filup the form correctly');
+        $("#msg").html("Please insert data");
     }
 }
 
 function display_data() {
     let get_data = JSON.parse(localStorage.getItem('crud'));
-    let user_count = get_data.length;
-    let html = '';
-    if (user_count > 0) {
+    let data_count = get_data.length;
+    if (data_count > 0) {
+        let html = '';
         let num = 1;
-        for (i = 0; i < user_count; i++) {
+        for (i = 0; i < data_count; i++) {
             html += `<tr>
                         <td>${num++}</td>
-                        <td>${get_data[i].name}</td>
-                        <td>${get_data[i].phone}</td>
+                        <td>${get_data[i].user_name}</td>
+                        <td>${get_data[i].user_phone}</td>
                         <td>
                             <a href="javascript:void(0)" onclick="edit_user(${i})">Edit</a>
-                            <a href="javascript:void(0)" onclick="delete_user(${i})"">Delete</a>
+                            <a href="javascript:void(0)" onclick="delete_user(${i})">Delete</a>
                         </td>
                     </tr>`;
         }
@@ -61,14 +68,14 @@ function display_data() {
 
 function edit_user(rid) {
     id = rid;
-    let get_users = JSON.parse(localStorage.getItem('crud'));
-    $("#user_name").val(get_users[rid].name);
-    $("#user_phone").val(get_users[rid].phone);
+    let get_data = JSON.parse(localStorage.getItem('crud'));
+    $("#user_name").val(get_data[id].user_name);
+    $("#user_phone").val(get_data[id].user_phone);
 }
 
 function delete_user(rid) {
-    let all_users = JSON.parse(localStorage.getItem('crud'));
-    all_users.splice(rid, 1);
-    localStorage.setItem('crud', JSON.stringify(all_users));
+    let get_data = JSON.parse(localStorage.getItem('crud'));
+    get_data.splice(rid, 1);
+    localStorage.setItem('crud', JSON.stringify(get_data));
     display_data();
 }
